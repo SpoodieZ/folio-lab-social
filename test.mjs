@@ -5,6 +5,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { runNewLine } from "./lib/line_new.mjs";
+import { buildFunding, buildMovers } from "./lib/lines.mjs";
 import { oauth1Header } from "./lib/x.mjs";
 import { decide, recordPost, plannedOffset } from "./lib/guard.mjs";
 import { lint, xLen } from "./lib/check.mjs";
@@ -86,6 +87,37 @@ t("config.json: two line 3 posts earlier in the day do not block the two schedul
   assert.equal(decide({ line: "up", cfg: real.lines.up, config: real, state: s, now: at(9, 30), ...nokill }).ok, true);
   s = recordPost(s, "up", { postId: "u", sig: "u", now: at(9, 30) });
   assert.equal(decide({ line: "down", cfg: real.lines.down, config: real, state: s, now: at(17, 30), ...nokill }).ok, true);
+});
+
+// ---- what lines 1 and 2 write (a fake page returns the data the real page would read from the app)
+const fakePage = data => ({ sleep: async () => {}, send: async () => ({ result: { data: "" } }), ev: async x => x.includes("pairsRows") || x.includes("topFunding") ? JSON.stringify({ png: "data:image/png;base64,AAAA", ...data }) : x.includes("data:image/png;base64,") ? "data:image/png;base64,AAAA" : x.includes(".filter(i=>!i.complete)") ? 0 : 1 });
+const mover = (n, c, v, crypto = true) => ({ n, c, v, crypto });
+const when = new Date(Date.UTC(2026, 10, 27, 8, 31));
+const run1 = async (name, fn) => { try { await fn(); n++; console.log("ok  ", name); } catch (e) { console.log("FAIL", name, "\n    ", e.message); process.exitCode = 1; } };
+await run1("gainers: a thin leader is never skipped over by a 'LED WITH' headline", async () => {
+  const p = await buildMovers(fakePage({ list: [mover("MINIMAX", 11.96, 8e3, false), mover("SEI", 11.6, 69e3), mover("SOXL", 11.1, 47e3, false), mover("PONS", 10.35, 13e3), mover("FET", 9.8, 29e3)], tiles: 24 }), "up", when);
+  assert.doesNotMatch(p.text.split("\n")[0], /LED WITH|SEI/); assert.equal(p.claim, undefined);
+});
+await run1("gainers and losers: the headline names the first of the list when it is liquid and moved 10%+", async () => {
+  const up = await buildMovers(fakePage({ list: [mover("ZZTOPA", 14.2, 90e3), mover("BBB", 9, 90e3), mover("CCC", 8, 90e3)], tiles: 9 }), "up", when);
+  assert.equal(up.text.split("\n")[0], "ZZTOPA LED WITH +14.20%");
+  const down = await buildMovers(fakePage({ list: [mover("ZZTOPB", -13.83, 63e3), mover("BBB", -9, 90e3), mover("CCC", -8, 90e3)], tiles: 9 }), "down", when);
+  assert.equal(down.text.split("\n")[0], "ZZTOPB WAS HIT: −13.83%");
+});
+await run1("gainers: $ only on crypto among the first three places", async () => {
+  const p = await buildMovers(fakePage({ list: [mover("MINIMAX", 5, 1e3, false), mover("SEI", 4, 1e3), mover("SOXL", 3, 1e3, false), mover("PONS", 2, 1e3), mover("FET", 1, 1e3)], tiles: 9 }), "up", when);
+  assert.deepEqual(p.text.match(/\$[A-Z]+/g), ["$SEI"]); assert.match(p.text, /MINIMAX \+5\.00% · \$SEI \+4\.00% · SOXL \+3\.00% · PONS/);
+});
+const fcfg = { notableApr: 100, minApr: 50, maxPerSide: 3 }, f = (name, apr, tf = false) => ({ name, apr, tf, fund: apr / 8760 });
+await run1("funding: no negative pair at all still builds, with no 'Shorts pay' line", async () => {
+  const p = await buildFunding(fakePage({ high: [f("SKHYNIX", 123, true), f("XMR", 101)], low: [], n: 40 }), fcfg, when);
+  assert.match(p.text, /Longs pay: SKHYNIX \+123% APR · \$XMR/); assert.doesNotMatch(p.text, /Shorts pay/); assert.match(p.alt, /Lowest, shorts pay: none right now\./); assert.deepEqual(p.numbersNotInData, []);
+});
+await run1("funding: only negative funding builds; quiet or empty data is skipped or refused", async () => {
+  const p = await buildFunding(fakePage({ high: [], low: [f("CYBER", -217)], n: 40 }), fcfg, when);
+  assert.match(p.text, /Shorts pay: \$CYBER −217% APR/); assert.doesNotMatch(p.text, /Longs pay/);
+  assert.match((await buildFunding(fakePage({ high: [f("AAA", 51.7)], low: [], n: 40 }), fcfg, when)).skip, /nothing notable/);
+  await assert.rejects(buildFunding(fakePage({ high: [], low: [], n: 0 }), fcfg, when), /no funding data/);
 });
 
 // ---- line 3 (NEW ON TXFLOW), the whole run offline

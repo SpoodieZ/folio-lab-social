@@ -15,7 +15,7 @@ Còn có: file `KILL` (đặt vào gốc repo, hoặc `state/KILL`) thì dừng 
 **Mỗi ngày 2 bài định kỳ**, thêm tuyến 3 khi có tin. Giờ chọn theo số lệnh và volume theo giờ trên TxFlow (nến 1 giờ của 237 mã, 29/10 đến 25/11); đó là giờ giao dịch, chưa phải giờ người xem lên X: sau 3 đến 4 tuần chỉnh theo X Analytics. Từ 14/3/2027 Mỹ đổi giờ mùa hè, đo lại.
 | Bài | Tuyến | Giờ (UTC / VN) | Luật |
 |---|---|---|---|
-| 1 | `up` (gainers) | 08:00–09:00 / 15:00–16:00 | cần ít nhất 3 thị trường; 3 mã đầu có `$` (trừ hàng hóa, ngoại hối) |
+| 1 | `up` (gainers) | 08:00–09:00 / 15:00–16:00 | cần ít nhất 3 thị trường; trong 3 vị trí đầu, chỉ crypto có `$` |
 | 2 | `funding` | 13:00–14:00 / 20:00–21:00, hết hạn 15:30 UTC (22:30 VN) | chỉ đăng khi APR cao nhất ≥ +100% hoặc thấp nhất ≤ −100%; mỗi bên tối đa 3 cặp có \|APR\| ≥ 50%; bỏ qua nếu hai danh sách giống hệt bài trước; cách bài trước ít nhất 6 giờ |
 | 2 dự phòng | `down` (losers) | 16:00–17:00 / 23:00–00:00 | **chỉ khi hôm đó `funding` chưa đăng** (`onlyIfNoPost`); luật còn lại như `up` |
 | thêm | `new` (tuyến 3) | khi có tin | xem mục Tuyến 3 |
@@ -41,11 +41,13 @@ Mỗi bài đi qua: đọc dữ liệu một lần → dựng chữ, ảnh, alt 
 ## Trạng thái (27/11/2026)
 `SOCIAL_MODE` = `dry`: lịch chạy và dựng bài, **không đăng**. Chưa có khoá X. Repo này nhận commit `state/` của bot, nên luôn `git pull --rebase` trước khi đẩy.
 
-**Sửa trước khi chuyển `live`** (thấy trong bài chạy thử 27/11):
-1. Câu mở đầu gainers/losers có thể sai: "SEI LED WITH +11.60%" trong khi MINIMAX +11.96% đứng đầu (câu này chỉ chọn mã có volume từ $50K nhưng viết như thể đó là mã dẫn đầu).
-2. Ảnh và alt text funding: khi không đủ 5 cặp có funding âm, cột "LOWEST · shorts pay" liệt kê cả cặp funding dương. Ảnh này do chính code của web vẽ.
-3. Cổ phiếu và ETF vẫn được gắn `$` trong gainers/losers (ví dụ `$MINIMAX`, `$SOXL`).
-4. Tên dài (`LGELECTRONICS`) sát hoặc tràn mép ô trên ảnh heatmap.
+**Đã sửa 27/11/2026** (các lỗi thấy trong bài chạy thử đầu tiên):
+1. Câu mở đầu "LED WITH" / "WAS HIT" chỉ nói về mã **đứng đầu danh sách**, và chỉ khi mã đó có volume từ $50K và biến động từ 10%; nếu không thì dùng câu thường.
+2. Funding: cột "longs pay" chỉ có funding dương, "shorts pay" chỉ có funding âm (sửa trong `app/index.html`); một bên trống thì ảnh ghi rõ, chữ bỏ dòng đó, alt text ghi "none right now".
+3. `$` chỉ gắn cho crypto theo phân loại của TxFlow (trong 3 vị trí đầu của gainers/losers). Cổ phiếu, ETF, chỉ số, pre-IPO, hàng hóa, FX, mã chưa có phân loại: không có `$`.
+4. Tên dài trên heatmap tự thu nhỏ cho vừa ô.
+Kèm theo: trang tải chậm thì chờ nút mở bảng giá thêm tối đa khoảng 30 giây; xin lại phân loại mã nếu lần đầu lỗi.
+`app/` ở đây đang **mới hơn web công khai** cho đến lần deploy tiếp theo.
 
 ## Bật lần đầu: các bước (bạn làm; khoá thì không gửi qua chat)
 1. **Tạo repo GitHub công khai riêng** (ví dụ `folio-lab-social`) và đẩy thư mục này lên. Công khai thì chạy miễn phí; đừng đưa file nào ngoài thư mục này vào. Trước khi đẩy chạy `./sync_app.sh` để chép bản mới nhất của trang web vào `app/` (sau mỗi lần deploy trang cũng chạy lại).
@@ -66,7 +68,7 @@ Bộ kiểm tra từ chối mọi bài mà **chữ chính hoặc reply kiểu `p
 X tính tiền theo lần gọi: tạo bài **$0.015**, tạo bài **có link $0.20**, gắn alt text **$0.005**. Với `reply: none`, mỗi bài (có ảnh và alt text) tốn **$0.02**, 5 bài mỗi ngày khoảng **$3 mỗi tháng**; với `pointer` thì $0.035 mỗi bài, khoảng $5.25 mỗi tháng. Phí tải ảnh lên không thấy trong bảng giá (có thể $0): xem hóa đơn vài ngày đầu. Giới hạn của X: 100 bài mỗi 15 phút, không đáng lo.
 
 ## Đã thử và chưa thử
-- **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (33 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
+- **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (38 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
 - **Đã thử trên máy GitHub** (27/11/2026, `dry`, chạy tay): cả bốn tuyến chạy xong; Chrome dựng được ảnh, TxFlow trả dữ liệu cho máy GitHub; tuyến 3 đã dựng thẻ (thử bằng cách giấu `STRC` khỏi mốc, sau đó đã xoá khỏi danh sách chờ).
 - **Chưa thử:** đăng thật lên X; lịch cron của GitHub tự chạy. Quy tắc của X về reply (chỉ trả lời người đã tương tác) có thể áp dụng cho reply vào bài của chính mình, chưa rõ.
 - **Chưa có:** tuyến 4, tuyến 5 (xem `tools/social/README.md`).

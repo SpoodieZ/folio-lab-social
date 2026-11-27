@@ -309,7 +309,7 @@ details.alertbox{margin:0 0 14px}
 .hmTile>*{position:relative;z-index:1}
 .hmTile:hover::before,.hmTile:focus-visible::before{filter:brightness(1.3);box-shadow:inset 0 0 0 1px var(--c-green)}
 .hmTile:focus-visible{outline:0}
-.hmTile b{font-weight:500;letter-spacing:.01em;line-height:1.1}
+.hmTile b{font-weight:500;letter-spacing:.01em;line-height:1.1;max-width:calc(100% - 8px);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .hmTile span{line-height:1.15;color:rgba(255,255,255,.8)}
 .hmLogo{display:block;border-radius:50%;flex:none;overflow:hidden;font-style:normal;box-sizing:border-box}
 .hmLogo:not(.bnd) svg{display:block;width:100%;height:100%}
@@ -3060,7 +3060,7 @@ en:{
   shPostTight:"Tightest spreads:", shSub:"24h vol {v}",
   shModeHeat:"Heatmap", shHmTitle:"Who is moving on TxFlow today?", shHmSizeVol:"size = 24h volume (scaled)", shHmSizeMove:"size = 24h move", shHmUp:"up only", shHmDown:"down only", shHmFoot:"Colour = 24h change · {n} markets · {t} UTC", shHmDisc:"Independent tool, not affiliated with TxFlow. Not financial advice. Logos belong to their owners and are used only to identify markets.", shNoteHeat:"Shows the markets in the heatmap with your current filters. With volume sizing, tile areas use the square root of volume so smaller markets stay readable. A snapshot that changes every few minutes. Independent tool, not financial advice.", shPostHm:"TxFlow heatmap: {c} ({t} UTC)", shPostGain:"Top gainers:", shPostLose:"Top losers:", shNone:"No markets to draw.",
   shH:"Share image", shCopy:"Copy post text", shCopied:"Copied!", shNote:"Uses pairs with at least $100K of 24h volume. Numbers are a snapshot and change every hour. Independent tool, not financial advice.",
-  shTitle:"FUNDING RADAR · TxFlow", shHigh:"HIGHEST · longs pay", shLow:"LOWEST · shorts pay", shFoot:"Snapshot {t} UTC · txfolio.xyz",
+  shTitle:"FUNDING RADAR · TxFlow", shHigh:"HIGHEST · longs pay", shLow:"LOWEST · shorts pay", shNoHigh:"No pair with positive funding right now", shNoLow:"No pair with negative funding right now", shPostNone:"none", shFoot:"Snapshot {t} UTC · txfolio.xyz",
   shDisc:"Independent tool · not affiliated with TxFlow · not financial advice",
     calH:"Daily net PnL", calSub:"Realized PnL − fees + funding, per UTC day, for the selected range.", hourH:"Performance by hour (UTC)", hourSub:"Realized PnL − fees from fills, grouped by the hour of the day (UTC) they happened.",
   hourBest:"Best hour: {h}:00 UTC ({v})", hourWorst:"Worst hour: {h}:00 UTC ({v})", hourNone:"No fills in this range.", calNone:"No activity in this range.", fillsN:"{n} fills",
@@ -4095,6 +4095,12 @@ function hmHas(name,cat,tags){
   if(HM_TAG[cat]) return HM_TAG[cat].some(i=>tg.includes(i))||HML[cat].has(b);
   return HML[cat]?HML[cat].has(b):false;
 }
+/* font size at which a ticker fits `room` px: long names (LGELECTRONICS) shrink, never below 8px (after that the tile cuts them with an ellipsis) */
+const hmMeasure=document.createElement("canvas").getContext("2d");
+function hmNameSize(name,size,room,family){
+  hmMeasure.font=`500 ${size}px ${family}`; const wide=hmMeasure.measureText(String(name)).width+String(name).length*size*.01;
+  return wide>room?Math.max(8,size*room/wide):size;
+}
 function hmSquarify(items,x,y,w,h){
   const total=items.reduce((a,b)=>a+b.v,0), area=w*h; items.forEach(i=>{ i.a=i.v/total*area; });
   const out=[]; let row=[], cx=x, cy=y, cw=w, ch=h;
@@ -4166,12 +4172,13 @@ function renderHeat(force){
   }
   HM.sig=sig;
   const GAP=2, reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const nameFont=getComputedStyle(wrap).fontFamily;
   const tileInner=(r,w,h)=>{
     const m=Math.min(w,h), pct=(r.chg>=0?"+":"−")+Math.abs(r.chg).toFixed(2)+"%", arrow=r.chg>=0?"▲ ":"▼ ";
     const fs=Math.max(11,Math.min(24,m/5.4)), fs2=Math.max(10,Math.min(13,m/9)), lg=Math.max(18,Math.min(40,m*.26));
     let inner="";
     if(m>=70&&w>=70) inner+=hmLogo(r.name,lg);
-    if(m>=34&&w>=46) inner+=`<b style="font-size:${fs.toFixed(1)}px">${esc(r.name)}</b>`;
+    if(m>=34&&w>=46) inner+=`<b style="font-size:${hmNameSize(r.name,fs,w-14,nameFont).toFixed(1)}px">${esc(r.name)}</b>`;
     if(m>=58&&w>=70) inner+=`<span class="hmPct" style="font-size:${fs2.toFixed(1)}px">${arrow}${pct}</span>`;
     if(m>=110&&w>=120&&r.vol!=null) inner+=`<span style="font-size:${fs2.toFixed(1)}px">${esc(t("hmVolLbl",{v:money(r.vol)}))}</span>`;
     return {inner,pct};
@@ -4420,12 +4427,12 @@ $("prFavOnly").addEventListener("change",()=>{ PX.favOnly=$("prFavOnly").checked
 /* ---------- Top funding image + post text ---------- */
 function topFunding(){
   const rows=[];
-  for(const p of PX.meta||[]){ if(p.delisted||p.halted) continue; const c=PX.ctx[p.id], v=PX.vol[p.id]; if(!c||!v||v.vol<1e5) continue; rows.push({name:p.name,fund:+c.funding,apr:+c.funding*24*365}); }
+  for(const p of PX.meta||[]){ if(p.delisted||p.halted) continue; const c=PX.ctx[p.id], v=PX.vol[p.id]; if(!c||!v||v.vol<1e5) continue; rows.push({name:p.name,fund:+c.funding,apr:+c.funding*24*365,tags:v.tags}); }
   rows.sort((a,b)=>b.apr-a.apr);
   const tight=[];
   for(const p of PX.meta||[]){ if(p.delisted||p.halted) continue; const b=PX.bbo[p.id], v=PX.vol[p.id]; if(!b||!(b.bid>0)||!(b.ask>0)||!v||v.vol<1e6) continue; tight.push({name:p.name,bps:(b.ask-b.bid)/((b.ask+b.bid)/2)*1e4,vol:v.vol}); }
   tight.sort((a,b)=>a.bps-b.bps);
-  return {high:rows.slice(0,5),low:rows.slice(-5).reverse(),tight:tight.slice(0,5),n:rows.length};
+  return {high:rows.filter(r=>r.apr>0).slice(0,5),low:rows.filter(r=>r.apr<0).slice(-5).reverse(),tight:tight.slice(0,5),n:rows.length};   /* longs pay only when funding is positive, shorts only when negative: a side may have fewer than 5, or none */
 }
 const utcStamp=()=>new Date().toISOString().slice(0,16).replace("T"," ");
 const HM_CATS={all:"hmCatAll",crypto:"hmCatCrypto",tradfi:"hmCatTradfi",stock:"hmCatStock",comm:"hmCatComm"}, HM_CATS_LIT={l1:"L1/L2",defi:"DeFi",meme:"Meme",ai:"AI",etf:"ETF"};
@@ -4478,7 +4485,7 @@ async function drawHeatShare(){
         if(L.im){ if(L.bg){ g.fillStyle=L.bg; g.fillRect(cx-lg/2,cy,lg,lg); } g.drawImage(L.im,cx-lg/2,cy,lg,lg); }
         else { let hsh=0; for(const ch of L.n||"?") hsh=(hsh*31+ch.charCodeAt(0))>>>0; g.fillStyle=`hsl(${hsh%360} 38% 36%)`; g.fillRect(cx-lg/2,cy,lg,lg); g.fillStyle="#fff"; g.font=`600 ${lg*.46}px "Space Grotesk",sans-serif`; g.fillText((L.n||"?")[0],cx,cy+lg/2+1); }
         g.restore(); }
-      else if(k==="name"){ g.fillStyle="#fff"; g.font=`500 ${fs}px "Space Grotesk",sans-serif`; g.fillText(String(r.name),cx,my); }
+      else if(k==="name"){ g.fillStyle="#fff"; g.font=`500 ${hmNameSize(r.name,fs,w2-12,'"Space Grotesk",sans-serif')}px "Space Grotesk",sans-serif`; g.fillText(String(r.name),cx,my,w2-8); }
       else if(k==="pct"){ g.fillStyle="rgba(255,255,255,.82)"; g.font=`400 ${fs2}px "Space Grotesk",sans-serif`; g.fillText(pct,cx,my); }
       else { g.fillStyle="rgba(255,255,255,.7)"; g.font=`400 ${fs2}px "Space Grotesk",sans-serif`; g.fillText(t("hmVolLbl",{v:money(r.vol)}),cx,my); }
       cy+=lh+3; } }
@@ -4502,6 +4509,7 @@ function drawShare(){
   g.font='500 44px "Funnel Display","Space Grotesk",sans-serif'; g.fillText(t($("shMode").value==="mix"?"shTitleMix":"shTitle"),60,135);
   const col=(x,title,list,color)=>{
     g.fillStyle=color; g.font='500 20px "Space Grotesk",sans-serif'; g.fillText(title,x,190);
+    if(!list.length&&PX.meta){ g.fillStyle="#9aa09a"; g.font='400 20px "Space Grotesk",sans-serif'; g.fillText(t(color==="#ff7a7a"?"shNoLow":"shNoHigh"),x,244); }
     list.forEach((r,i)=>{ const y=250+i*62;
       g.fillStyle="#fff"; g.font='500 34px "Space Grotesk",sans-serif'; g.fillText(r.name,x,y);
       g.textAlign="right"; g.fillStyle=color; g.font='500 34px "Space Grotesk",sans-serif'; g.fillText((r.apr>0?"+":"")+r.apr.toFixed(1)+"% APR",x+480,y);
@@ -4525,7 +4533,8 @@ function sharePostText(){
   }
   const T=topFunding(), f=r=>`${r.name} ${(r.apr>0?"+":"")+r.apr.toFixed(0)}%`;
   const g=r=>`${r.name} ${r.bps.toFixed(2)} bps`, mix=$("shMode").value==="mix";
-  return `${t("shPost",{t:utcStamp()})}\n${t("shPostHigh")} ${T.high.map(f).join(", ")}\n${mix?t("shPostTight")+" "+T.tight.map(g).join(", "):t("shPostLow")+" "+T.low.map(f).join(", ")}\n${t("shPostVia")}`;
+  const names=l=>l.length?l.map(f).join(", "):t("shPostNone");
+  return `${t("shPost",{t:utcStamp()})}\n${t("shPostHigh")} ${names(T.high)}\n${mix?t("shPostTight")+" "+T.tight.map(g).join(", "):t("shPostLow")+" "+names(T.low)}\n${t("shPostVia")}`;
 }
 function openShare(){
   $("shMode").value="heat"; $("prShare").hidden=false; $("shCopy").textContent=t("shCopy");
