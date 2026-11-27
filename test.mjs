@@ -141,6 +141,18 @@ await run1("key check: a key echoed back by X never reaches the log", async () =
   for (const v of Object.values(KEYS)) assert.ok(!r.text.includes(v)); assert.match(r.text, /\[hidden\]/);
 });
 
+t("workflow timers match config.json: every timer picks a line, and each timed line gets a run soon after any planned minute", () => {
+  const yml = fs.readFileSync(path.join(import.meta.dirname, ".github", "workflows", "social.yml"), "utf8");
+  const crons = [...yml.matchAll(/^\s*- cron: "([^"]+)"/gm)].map(m => m[1]), picks = Object.fromEntries([...yml.matchAll(/^\s*"([^"]+)"\) LINE=(\w+) ;;/gm)].map(m => [m[1], m[2]]));
+  assert.deepEqual(Object.keys(picks).sort(), [...crons].sort()); assert.deepEqual(Object.values(picks).sort(), Object.keys(real.lines).sort());
+  for (const cron of crons) {
+    const line = picks[cron], c = real.lines[line], [mins, hours] = cron.split(" ");
+    if (c.anyTime) { assert.equal(hours, "*"); continue; }
+    const [a, b] = hours.split("-").map(Number), times = []; for (let h = a; h <= (b ?? a); h++) for (const m of mins.split(",").map(Number)) times.push(h * 60 + m);
+    for (let off = 0; off <= c.jitterMinutes; off++) { const planned = c.utcHour * 60 + off; assert.ok(times.some(x => x >= planned && x - planned <= 30 && x <= c.utcHour * 60 + c.windowMinutes), `${line}: no run within 30 min after minute ${off}`); }
+  }
+});
+
 // ---- line 3 (NEW ON TXFLOW), the whole run offline
 const mk = (i, name, o = {}) => ({ index: i, name, lev: 20, halted: false, delisted: false, cat: "Stocks", ...o });
 const BASE = Array.from({ length: 60 }, (_, i) => mk(i + 1, "AAA" + String.fromCharCode(65 + Math.floor(i / 26), 65 + i % 26)));

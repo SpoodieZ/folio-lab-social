@@ -27,7 +27,7 @@ Mỗi bài đi qua: đọc dữ liệu một lần → dựng chữ, ảnh, alt 
 ## Tuyến 3 (NEW ON TXFLOW): mã mới, mã quay lại, mã bị gỡ
 `lines.new.enabled` là `true` từ 27/11/2026: tuyến này chạy theo `SOCIAL_MODE` như các tuyến khác.
 
-- **Không có giờ đăng.** Chạy mỗi giờ (phút 23; GitHub có thể chạy trễ), chỉ đăng khi danh sách mã của TxFlow thay đổi. Tối đa 2 bài mỗi ngày (`maxPerDay`), vẫn tính vào `dailyCap`. Ngày tính theo giờ UTC.
+- **Không có giờ đăng.** Chạy mỗi giờ (phút 53; GitHub có thể chạy trễ), chỉ đăng khi danh sách mã của TxFlow thay đổi. Tối đa 2 bài mỗi ngày (`maxPerDay`), vẫn tính vào `dailyCap`. Ngày tính theo giờ UTC.
 - **Lần chạy đầu** chỉ lưu mốc vào `state/markets.json`, không đăng gì, nên thay đổi cũ không bị đăng như tin mới. Mốc này riêng, không dùng chung với công cụ thủ công trong `tools/social/`.
 - **Không mất tin khi lỗi:** thay đổi vào danh sách chờ trước khi dựng bài, và chỉ ra khỏi danh sách **sau khi X nhận bài**. Lỗi ảnh, lỗi X hay hết giới hạn ngày thì lần chạy sau thử lại.
 - **Quá 24 giờ chưa đăng được** (hoặc lịch bị tắt lâu rồi bật lại) thì bỏ tin đó, vì bài ghi "just appeared". Tên mã được ghi trong `state/log.jsonl` (dòng `dropped`): muốn đăng thì làm tay.
@@ -39,7 +39,7 @@ Mỗi bài đi qua: đọc dữ liệu một lần → dựng chữ, ảnh, alt 
 - **Rủi ro chưa xử lý:** nếu X đã nhận bài nhưng phản hồi bị mất, hoặc bước lưu `state/` lên GitHub lỗi sau khi đăng, lần chạy sau có thể đăng trùng.
 
 ## Trạng thái (27/11/2026)
-`SOCIAL_MODE` = `dry`: lịch chạy và dựng bài, **không đăng**. Chưa có khoá X. Repo này nhận commit `state/` của bot, nên luôn `git pull --rebase` trước khi đẩy.
+`SOCIAL_MODE` = `live` từ 15:23 giờ VN: đăng thật. Muốn dừng: đổi thành `off` hoặc `dry`. Khoá X đã lưu và đã kiểm tra; bài đăng thật đầu tiên (gainers, chạy tay) đã lên @Txfoliolab. Đến 19:00 giờ VN lịch chưa tự chạy lần nào, nên các phút hẹn đã được đổi sang :11/:41, :13/:43, :17/:47 và :53 để GitHub đọc lại lịch (chưa rõ nguyên nhân). Repo này nhận commit `state/` của bot, nên luôn `git pull --rebase` trước khi đẩy.
 
 **Đã sửa 27/11/2026** (các lỗi thấy trong bài chạy thử đầu tiên):
 1. Câu mở đầu "LED WITH" / "WAS HIT" chỉ nói về mã **đứng đầu danh sách**, và chỉ khi mã đó có volume từ $50K và biến động từ 10%; nếu không thì dùng câu thường.
@@ -71,7 +71,7 @@ Bộ kiểm tra từ chối mọi bài mà **chữ chính hoặc reply kiểu `p
 X tính tiền theo lần gọi: tạo bài **$0.015**, tạo bài **có link $0.20**, gắn alt text **$0.005**. Với `reply: none`, mỗi bài (có ảnh và alt text) tốn **$0.02**, 5 bài mỗi ngày khoảng **$3 mỗi tháng**; với `pointer` thì $0.035 mỗi bài, khoảng $5.25 mỗi tháng. Phí tải ảnh lên không thấy trong bảng giá (có thể $0): xem hóa đơn vài ngày đầu. Giới hạn của X: 100 bài mỗi 15 phút, không đáng lo.
 
 ## Đã thử và chưa thử
-- **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (41 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
+- **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (42 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
 - **Đã thử trên máy GitHub** (27/11/2026, `dry`, chạy tay): cả bốn tuyến chạy xong; Chrome dựng được ảnh, TxFlow trả dữ liệu cho máy GitHub; tuyến 3 đã dựng thẻ (thử bằng cách giấu `STRC` khỏi mốc, sau đó đã xoá khỏi danh sách chờ).
 - **Chưa thử:** đăng thật lên X; lịch cron của GitHub tự chạy. Quy tắc của X về reply (chỉ trả lời người đã tương tác) có thể áp dụng cho reply vào bài của chính mình, chưa rõ.
 - **Chưa có:** tuyến 4, tuyến 5 (xem `tools/social/README.md`).

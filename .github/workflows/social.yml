@@ -5,10 +5,10 @@ name: social
 on:
   schedule:
     # Each line wakes up every 30 minutes inside its window; guard.mjs posts at a random minute of the day (up to 120 min after the hour) and only once.
-    - cron: "7,37 8-11 * * *"     # TOP GAINERS   (from 08:00 UTC, 15:00 Vietnam)
-    - cron: "7,37 13-16 * * *"    # FUNDING RADAR (from 13:00 UTC, 20:00 Vietnam)
-    - cron: "7,37 16-19 * * *"    # TOP LOSERS    (from 16:00 UTC, 23:00 Vietnam)
-    - cron: "23 * * * *"          # NEW ON TXFLOW (every hour; posts only when the market list changed)
+    - cron: "11,41 8-11 * * *"     # TOP GAINERS   (from 08:00 UTC, 15:00 Vietnam)
+    - cron: "13,43 13-16 * * *"    # FUNDING RADAR (from 13:00 UTC, 20:00 Vietnam)
+    - cron: "17,47 16-19 * * *"    # TOP LOSERS    (from 16:00 UTC, 23:00 Vietnam)
+    - cron: "53 * * * *"          # NEW ON TXFLOW (every hour; posts only when the market list changed)
   workflow_dispatch:
     inputs:
       line:
@@ -49,10 +49,10 @@ jobs:
         run: |
           if [ "$EVENT" = "workflow_dispatch" ]; then LINE="$INPUT_LINE"; else
             case "$SCHEDULE" in
-              "7,37 8-11 * * *") LINE=up ;;
-              "7,37 13-16 * * *") LINE=funding ;;
-              "7,37 16-19 * * *") LINE=down ;;
-              "23 * * * *") LINE=new ;;
+              "11,41 8-11 * * *") LINE=up ;;
+              "13,43 13-16 * * *") LINE=funding ;;
+              "17,47 16-19 * * *") LINE=down ;;
+              "53 * * * *") LINE=new ;;
               *) echo "unknown schedule $SCHEDULE"; exit 1 ;;
             esac
           fi
