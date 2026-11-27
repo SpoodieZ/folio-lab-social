@@ -5,3 +5,4 @@
 {"at":"2026-11-27T05:43:14.085Z","line":"new","decision":"dry-run","reason":"new: built, nothing posted; see out/2026-11-27-0543-new-new","numbers":{"listed":["STRC"]},"warns":[]}
 {"at":"2026-11-27T06:59:18.423Z","line":"up","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0658-up","numbers":{"listed":5,"top":20.99},"warns":[]}
 {"at":"2026-11-27T06:59:53.597Z","line":"funding","decision":"skip","reason":"nothing notable: highest positive APR 20.8%, lowest negative -27.8% (needs 100% either way)","numbers":{"hi":20.8221696,"lo":-27.8482152}}
+{"at":"2026-11-27T07:00:52.392Z","line":"down","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0700-down","numbers":{"listed":5,"top":-10.7},"warns":[]}
