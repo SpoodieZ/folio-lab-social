@@ -1,0 +1,83 @@
+name: social
+
+# The master switch is the repository VARIABLE  SOCIAL_MODE  (Settings > Secrets and variables > Actions > Variables):
+#   unset or "off"  nothing runs      "dry"  builds the post and saves it as a downloadable file, never posts      "live"  posts to X
+on:
+  schedule:
+    # Each line wakes up every 30 minutes inside its window; guard.mjs posts at a random minute of the day (up to 120 min after the hour) and only once.
+    - cron: "7,37 8-11 * * *"     # TOP GAINERS   (from 08:00 UTC, 15:00 Vietnam)
+    - cron: "7,37 13-16 * * *"    # FUNDING RADAR (from 13:00 UTC, 20:00 Vietnam)
+    - cron: "7,37 16-19 * * *"    # TOP LOSERS    (from 16:00 UTC, 23:00 Vietnam)
+    - cron: "23 * * * *"          # NEW ON TXFLOW (every hour; posts only when the market list changed)
+  workflow_dispatch:
+    inputs:
+      line:
+        description: "Which line to run"
+        required: true
+        type: choice
+        options: [funding, up, down, new]
+      force:
+        description: "Ignore the posting window and the minimum gap (the kill file, the pause and the daily cap still apply)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: social
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    if: ${{ vars.SOCIAL_MODE == 'dry' || vars.SOCIAL_MODE == 'live' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Self-tests
+        run: node test.mjs
+      - name: Pick the line
+        id: pick
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          INPUT_LINE: ${{ inputs.line }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then LINE="$INPUT_LINE"; else
+            case "$SCHEDULE" in
+              "7,37 8-11 * * *") LINE=up ;;
+              "7,37 13-16 * * *") LINE=funding ;;
+              "7,37 16-19 * * *") LINE=down ;;
+              "23 * * * *") LINE=new ;;
+              *) echo "unknown schedule $SCHEDULE"; exit 1 ;;
+            esac
+          fi
+          echo "line=$LINE" >> "$GITHUB_OUTPUT"
+      - name: Run the line
+        env:
+          SOCIAL_MODE: ${{ vars.SOCIAL_MODE }}
+          FORCE: ${{ inputs.force && '1' || '0' }}
+          CHROME: /usr/bin/google-chrome
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: node run.mjs "${{ steps.pick.outputs.line }}"
+      - name: Keep the post and image of this run (download from the run page)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: out-${{ steps.pick.outputs.line }}
+          path: out/
+          if-no-files-found: ignore
+      - name: Save the state (what was posted, and why a day was skipped)
+        if: always()
+        run: |
+          git config user.name "folio-lab-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state
+          if ! git diff --cached --quiet; then git commit -m "state: ${{ steps.pick.outputs.line }} $(date -u +%F)"; git pull --rebase; git push; fi

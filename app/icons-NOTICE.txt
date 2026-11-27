@@ -1,0 +1,10 @@
+Coin and company logos
+Bundled in icons.json:
+- Crypto token logos come from @web3icons/core (https://github.com/0xa3k5/web3icons), MIT licence, (c) 0xa3k5. Some coins use their network's logo from the same package. A few tokens come from @token-icons/core (MIT).
+- Company logo shapes come from Simple Icons (https://simpleicons.org), CC0 for the package.
+- The commodity and currency badges (gold, silver, oil, gas, copper, USD/JPY, EUR/USD) are simple original drawings made for this project.
+Small copies in the logos/ folder (listed in logo-map.json), used only for markets without a bundled logo:
+- Crypto logos from CoinGecko (https://www.coingecko.com), found with its public API.
+- Stock and ETF logos from Financial Modeling Prep (https://financialmodelingprep.com).
+If a logo cannot be shown, the market shows a coloured letter instead.
+All logos and names belong to their respective owners. They are used only to identify markets, with no endorsement implied.

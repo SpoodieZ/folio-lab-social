@@ -1,0 +1,44 @@
+{
+  "_note": "The master switch is NOT in this file: it is the repository variable SOCIAL_MODE (off | dry | live). Unset or off means nothing runs. A line can also be paused here with enabled:false. reply: none (default, nothing is posted under the post; the owner may add the link by hand) | pointer (an automatic reply without any link) | link (an automatic reply with txfolio.xyz, costs $0.20 each). Line new (NEW ON TXFLOW) is event-driven: no posting hour, at most maxPerDay posts; it is enabled since 2026-11-27 at the owner's request. Plan: two scheduled posts a day (up, then funding; down only on a day funding did not post: onlyIfNoPost) plus line new whenever it has news; dailyCap 4 = 2 + 2. funding must close (utcHour + windowMinutes) before down opens.",
+  "dailyCap": 4,
+  "lines": {
+    "funding": {
+      "enabled": true,
+      "utcHour": 13,
+      "windowMinutes": 150,
+      "minGapHours": 6,
+      "notableApr": 100,
+      "minApr": 50,
+      "maxPerSide": 3,
+      "startAfter": null,
+      "jitterMinutes": 60,
+      "reply": "none"
+    },
+    "up": {
+      "enabled": true,
+      "utcHour": 8,
+      "windowMinutes": 240,
+      "minGapHours": 20,
+      "startAfter": null,
+      "jitterMinutes": 60,
+      "reply": "none"
+    },
+    "new": {
+      "enabled": true,
+      "anyTime": true,
+      "maxPerDay": 2,
+      "startAfter": null,
+      "reply": "none"
+    },
+    "down": {
+      "enabled": true,
+      "utcHour": 16,
+      "windowMinutes": 240,
+      "minGapHours": 20,
+      "startAfter": null,
+      "jitterMinutes": 60,
+      "reply": "none",
+      "onlyIfNoPost": "funding"
+    }
+  }
+}
