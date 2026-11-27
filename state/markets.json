@@ -1520,15 +1520,6 @@
    "everLive": true
   }
  ],
- "pending": [
-  {
-   "kind": "new",
-   "index": 253,
-   "name": "STRC",
-   "since": "2026-11-27T05:37:52.518Z",
-   "foundAt": "2026-11-27T05:43:11.718Z",
-   "dryAt": "2026-11-27T05:43:11.718Z"
-  }
- ],
+ "pending": [],
  "sent": []
 }

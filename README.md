@@ -38,6 +38,15 @@ Mỗi bài đi qua: đọc dữ liệu một lần → dựng chữ, ảnh, alt 
 - **Khi đã bật tự động** thì đừng đăng tuyến 3 bằng công cụ thủ công nữa, nếu không dễ đăng trùng.
 - **Rủi ro chưa xử lý:** nếu X đã nhận bài nhưng phản hồi bị mất, hoặc bước lưu `state/` lên GitHub lỗi sau khi đăng, lần chạy sau có thể đăng trùng.
 
+## Trạng thái (27/11/2026)
+`SOCIAL_MODE` = `dry`: lịch chạy và dựng bài, **không đăng**. Chưa có khoá X. Repo này nhận commit `state/` của bot, nên luôn `git pull --rebase` trước khi đẩy.
+
+**Sửa trước khi chuyển `live`** (thấy trong bài chạy thử 27/11):
+1. Câu mở đầu gainers/losers có thể sai: "SEI LED WITH +11.60%" trong khi MINIMAX +11.96% đứng đầu (câu này chỉ chọn mã có volume từ $50K nhưng viết như thể đó là mã dẫn đầu).
+2. Ảnh và alt text funding: khi không đủ 5 cặp có funding âm, cột "LOWEST · shorts pay" liệt kê cả cặp funding dương. Ảnh này do chính code của web vẽ.
+3. Cổ phiếu và ETF vẫn được gắn `$` trong gainers/losers (ví dụ `$MINIMAX`, `$SOXL`).
+4. Tên dài (`LGELECTRONICS`) sát hoặc tràn mép ô trên ảnh heatmap.
+
 ## Bật lần đầu: các bước (bạn làm; khoá thì không gửi qua chat)
 1. **Tạo repo GitHub công khai riêng** (ví dụ `folio-lab-social`) và đẩy thư mục này lên. Công khai thì chạy miễn phí; đừng đưa file nào ngoài thư mục này vào. Trước khi đẩy chạy `./sync_app.sh` để chép bản mới nhất của trang web vào `app/` (sau mỗi lần deploy trang cũng chạy lại).
 2. **Khoá X** (Settings → Secrets and variables → Actions → *Secrets*): `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET` của tài khoản sẽ đăng (đề xuất @Txfoliolab), tạo ở developer.x.com, quyền đọc và ghi. Tài khoản phải bật nhãn **Automated** và ghi trong bio ai điều hành.
@@ -58,7 +67,8 @@ X tính tiền theo lần gọi: tạo bài **$0.015**, tạo bài **có link $0
 
 ## Đã thử và chưa thử
 - **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (33 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
-- **Chưa thử:** đăng thật lên X; chạy trên máy GitHub (Chrome và mạng ở đó, TxFlow có chặn IP của GitHub hay không); lịch cron của GitHub. Quy tắc của X về reply (chỉ trả lời người đã tương tác) có thể áp dụng cho reply vào bài của chính mình, chưa rõ.
+- **Đã thử trên máy GitHub** (27/11/2026, `dry`, chạy tay): cả bốn tuyến chạy xong; Chrome dựng được ảnh, TxFlow trả dữ liệu cho máy GitHub; tuyến 3 đã dựng thẻ (thử bằng cách giấu `STRC` khỏi mốc, sau đó đã xoá khỏi danh sách chờ).
+- **Chưa thử:** đăng thật lên X; lịch cron của GitHub tự chạy. Quy tắc của X về reply (chỉ trả lời người đã tương tác) có thể áp dụng cho reply vào bài của chính mình, chưa rõ.
 - **Chưa có:** tuyến 4, tuyến 5 (xem `tools/social/README.md`).
 
 ## Các file
