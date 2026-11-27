@@ -7,6 +7,7 @@ import path from "node:path";
 import { runNewLine } from "./lib/line_new.mjs";
 import { buildFunding, buildMovers } from "./lib/lines.mjs";
 import { checkKeys } from "./check_keys.mjs";
+import { tick } from "./tick.mjs";
 import { oauth1Header } from "./lib/x.mjs";
 import { decide, recordPost, plannedOffset } from "./lib/guard.mjs";
 import { lint, xLen } from "./lib/check.mjs";
@@ -152,6 +153,27 @@ t("workflow timers match config.json: every timer picks a line, and each timed l
     for (let off = 0; off <= c.jitterMinutes; off++) { const planned = c.utcHour * 60 + off; assert.ok(times.some(x => x >= planned && x - planned <= 30 && x <= c.utcHour * 60 + c.windowMinutes), `${line}: no run within 30 min after minute ${off}`); }
   }
 });
+
+// ---- one outside timer for every line (tick.mjs)
+const day = (fundingHasNews, every, shift, mode = "live") => {
+  let s = empty(); const posted = [], ran = {};
+  for (let m = shift; m < 1440; m += every) {
+    const now = new Date(Date.UTC(2026, 10, 28, 0, m));
+    tick({ config: real, load: () => s, now: () => now, say: () => {}, killPaths: [], run: line => { ran[line] = (ran[line] || 0) + 1; if (line !== "new" && !(line === "funding" && !fundingHasNews)) { if (mode === "live") s = recordPost(s, line, { postId: "p", sig: line, now }); posted.push(line); } return 0; } });
+  }
+  return { posted, ran };
+};
+t("one timer every 30 minutes, whatever minute it starts on, gives the two posts of the day", () => {
+  for (let shift = 0; shift < 30; shift++) { assert.deepEqual(day(true, 30, shift).posted, ["up", "funding"], "shift " + shift); assert.deepEqual(day(false, 30, shift).posted, ["up", "down"], "quiet, shift " + shift); }
+});
+t("one timer: line new is looked at on every call; timed lines are not started outside their windows", () => {
+  const { ran } = day(true, 30, 5); assert.equal(ran.new, 48); assert.equal(ran.up, 1); assert.equal(ran.funding, 1); assert.equal(ran.down, undefined);
+});
+t("one timer: a failing line does not stop the next one, and the call reports the failure", () => {
+  const seen = []; const code = tick({ config: real, load: empty, now: () => at(9, 30), say: () => {}, killPaths: [], run: line => { seen.push(line); return line === "up" ? 1 : 0; } });
+  assert.deepEqual(seen, ["up", "new"]); assert.equal(code, 1);
+});
+t("one timer: the kill file keeps every timed line closed", () => { const seen = []; tick({ config: real, load: empty, now: () => at(9, 30), say: () => {}, killPaths: ["/etc/hosts"], run: l => (seen.push(l), 0) }); assert.deepEqual(seen, ["new"]); });
 
 // ---- line 3 (NEW ON TXFLOW), the whole run offline
 const mk = (i, name, o = {}) => ({ index: i, name, lev: 20, halted: false, delisted: false, cat: "Stocks", ...o });
