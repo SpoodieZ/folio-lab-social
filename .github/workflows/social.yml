@@ -34,7 +34,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # the NEWEST state of the branch, not the commit from the moment the run was asked for: a run that waited for another one (or is re-run later)
+      # must see what has already been posted, or it could post twice
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24

@@ -175,6 +175,11 @@ t("one timer: a failing line does not stop the next one, and the call reports th
 });
 t("one timer: the kill file keeps every timed line closed", () => { const seen = []; tick({ config: real, load: empty, now: () => at(9, 30), say: () => {}, killPaths: ["/etc/hosts"], run: l => (seen.push(l), 0) }); assert.deepEqual(seen, ["new"]); });
 
+t("workflow reads the newest state: runs are serialised and each one checks out the branch head, not the commit it was asked from", () => {
+  const yml = fs.readFileSync(path.join(import.meta.dirname, ".github", "workflows", "social.yml"), "utf8");
+  assert.match(yml, /concurrency:\n  group: social\n  cancel-in-progress: false/); assert.match(yml, /uses: actions\/checkout@v4\n        with:\n          ref: \$\{\{ github\.ref_name \}\}/);
+});
+
 // ---- line 3 (NEW ON TXFLOW), the whole run offline
 const mk = (i, name, o = {}) => ({ index: i, name, lev: 20, halted: false, delisted: false, cat: "Stocks", ...o });
 const BASE = Array.from({ length: 60 }, (_, i) => mk(i + 1, "AAA" + String.fromCharCode(65 + Math.floor(i / 26), 65 + i % 26)));
