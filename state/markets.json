@@ -1,0 +1,1525 @@
+{
+ "savedAt": "2026-11-27T05:37:52.518Z",
+ "markets": [
+  {
+   "index": 1,
+   "name": "BTC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 2,
+   "name": "ETH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 3,
+   "name": "BNB",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 4,
+   "name": "BCH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 5,
+   "name": "LTC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 6,
+   "name": "ETC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 7,
+   "name": "LINK",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 8,
+   "name": "ADA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 9,
+   "name": "ATOM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 10,
+   "name": "DOGE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 11,
+   "name": "DOT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 12,
+   "name": "CRV",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 13,
+   "name": "SOL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 14,
+   "name": "UNI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 15,
+   "name": "AVAX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 16,
+   "name": "FIL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 17,
+   "name": "AAVE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 18,
+   "name": "XRP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 19,
+   "name": "APT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 20,
+   "name": "TRX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 21,
+   "name": "ARB",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 22,
+   "name": "OP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 23,
+   "name": "LDO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 24,
+   "name": "NEAR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 25,
+   "name": "SUI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 26,
+   "name": "WLD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 27,
+   "name": "XLM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 28,
+   "name": "ICP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 29,
+   "name": "SEI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 30,
+   "name": "HBAR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 31,
+   "name": "TON",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 32,
+   "name": "CAKE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 33,
+   "name": "CRO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 34,
+   "name": "MNT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 35,
+   "name": "1000BONK",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 36,
+   "name": "ONDO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 37,
+   "name": "TAO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 38,
+   "name": "JUP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 39,
+   "name": "STRK",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 40,
+   "name": "ENA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 41,
+   "name": "POL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 42,
+   "name": "VIRTUAL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 43,
+   "name": "PENGU",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 44,
+   "name": "HYPE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 45,
+   "name": "TRUMP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 46,
+   "name": "XAUT",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 47,
+   "name": "PUMP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 48,
+   "name": "SKY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 49,
+   "name": "WLFI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 50,
+   "name": "ASTER",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 51,
+   "name": "XAU",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 52,
+   "name": "XAG",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 53,
+   "name": "CL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 54,
+   "name": "MSTR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 55,
+   "name": "NG",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 56,
+   "name": "XCU",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 57,
+   "name": "CRCL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 58,
+   "name": "XPD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 59,
+   "name": "TSLA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 60,
+   "name": "COIN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 61,
+   "name": "XPT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 62,
+   "name": "COPPER",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 63,
+   "name": "EWJ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 64,
+   "name": "AERO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 65,
+   "name": "BZ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 66,
+   "name": "1INCH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 67,
+   "name": "ANKR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 68,
+   "name": "AXL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 69,
+   "name": "BLUR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 70,
+   "name": "CELR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 71,
+   "name": "COTI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 72,
+   "name": "ETHFI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 73,
+   "name": "GMX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 74,
+   "name": "HOOD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 75,
+   "name": "INJ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 76,
+   "name": "JASMY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 77,
+   "name": "LINEA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 78,
+   "name": "META",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 79,
+   "name": "MU",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 80,
+   "name": "SPY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 81,
+   "name": "AAPL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 82,
+   "name": "ALICE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 83,
+   "name": "AMZN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 84,
+   "name": "API3",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 85,
+   "name": "AR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 86,
+   "name": "ARKM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 87,
+   "name": "AXS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 88,
+   "name": "BAND",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 89,
+   "name": "BAT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 90,
+   "name": "CC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 91,
+   "name": "CELO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 92,
+   "name": "CETUS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 93,
+   "name": "CHZ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 94,
+   "name": "COMP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 95,
+   "name": "CYBER",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 96,
+   "name": "DYDX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 97,
+   "name": "EDU",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 98,
+   "name": "FET",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 99,
+   "name": "FLOW",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 100,
+   "name": "GAS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 101,
+   "name": "GOOGL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 102,
+   "name": "GRT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 103,
+   "name": "HNT",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 104,
+   "name": "HOT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 105,
+   "name": "ID",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 106,
+   "name": "IMX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 107,
+   "name": "INTC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 108,
+   "name": "IOTA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 109,
+   "name": "IOTX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 110,
+   "name": "JTO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 111,
+   "name": "KAS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 112,
+   "name": "KITE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 113,
+   "name": "LUNA2",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 114,
+   "name": "MANA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 115,
+   "name": "MANTA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 116,
+   "name": "MINA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 117,
+   "name": "MORPHO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 118,
+   "name": "MTL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 119,
+   "name": "NATGAS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 120,
+   "name": "NEO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 121,
+   "name": "NIGHT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 122,
+   "name": "NVDA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 123,
+   "name": "ONT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 124,
+   "name": "PAYP",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 125,
+   "name": "PLTR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 126,
+   "name": "QQQ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 127,
+   "name": "SNDK",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 128,
+   "name": "TSM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 129,
+   "name": "ZEC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 130,
+   "name": "XMR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 131,
+   "name": "DASH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 132,
+   "name": "TIA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 133,
+   "name": "FARTCOIN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 134,
+   "name": "WIF",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 135,
+   "name": "RENDER",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 136,
+   "name": "MSFT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 137,
+   "name": "AMD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 138,
+   "name": "LITE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 139,
+   "name": "SOXL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 140,
+   "name": "MRVL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 141,
+   "name": "AVGO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 142,
+   "name": "CRWV",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 143,
+   "name": "QCOM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 144,
+   "name": "ARM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 145,
+   "name": "URNM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 146,
+   "name": "PEPE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 147,
+   "name": "SHIB",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 148,
+   "name": "SPCX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 149,
+   "name": "LRCX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 150,
+   "name": "LIT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 151,
+   "name": "GRAM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 152,
+   "name": "SKHYNIX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 153,
+   "name": "SAMSUNG",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 154,
+   "name": "UVXY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 155,
+   "name": "STXX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 156,
+   "name": "MON",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 157,
+   "name": "LAB",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 158,
+   "name": "VVV",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 159,
+   "name": "TURBO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 160,
+   "name": "KAITO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 161,
+   "name": "CASHCAT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 162,
+   "name": "DRAM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 163,
+   "name": "NBIS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 164,
+   "name": "ZAMA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 165,
+   "name": "XPL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 166,
+   "name": "PENDLE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 167,
+   "name": "EIGEN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 168,
+   "name": "PLUME",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 169,
+   "name": "SOXS",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 170,
+   "name": "MRNA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 171,
+   "name": "PONS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 172,
+   "name": "IONQ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 173,
+   "name": "USELESS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 174,
+   "name": "EWY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 175,
+   "name": "TWLO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 176,
+   "name": "CGNX",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 177,
+   "name": "RAY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 178,
+   "name": "ZHIPU",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 179,
+   "name": "MINIMAX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 180,
+   "name": "RKLB",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 181,
+   "name": "CBRS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 182,
+   "name": "MET",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 183,
+   "name": "XOM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 184,
+   "name": "OPENAI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 185,
+   "name": "ANTHROPIC",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 186,
+   "name": "LGELECTRONICS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 187,
+   "name": "NAVER",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 188,
+   "name": "HANMI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 189,
+   "name": "TQQQ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 190,
+   "name": "SQQQ",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 191,
+   "name": "RDDT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 192,
+   "name": "CRWD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 193,
+   "name": "SMCI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 194,
+   "name": "APLD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 195,
+   "name": "TLT",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 196,
+   "name": "STONK",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 197,
+   "name": "USDJPY",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 198,
+   "name": "HUT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 199,
+   "name": "TEAM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 200,
+   "name": "OKLO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 201,
+   "name": "NIL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 202,
+   "name": "GRASS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 203,
+   "name": "PATH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 204,
+   "name": "CYPH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 205,
+   "name": "MOONSHOT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 206,
+   "name": "OURA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 207,
+   "name": "IREN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 208,
+   "name": "CRDO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 209,
+   "name": "APP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 210,
+   "name": "ADBE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 211,
+   "name": "COST",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 212,
+   "name": "BX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 213,
+   "name": "DKNG",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 214,
+   "name": "BRKB",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 215,
+   "name": "KO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 216,
+   "name": "IBM",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 217,
+   "name": "G",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 218,
+   "name": "QNTX",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 219,
+   "name": "UNH",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 220,
+   "name": "SNOW",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 221,
+   "name": "HIMS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 222,
+   "name": "KLAC",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 223,
+   "name": "GS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 224,
+   "name": "TMF",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 225,
+   "name": "ZRO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 226,
+   "name": "XDP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 227,
+   "name": "TWST",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 228,
+   "name": "CVNA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 229,
+   "name": "CT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 230,
+   "name": "MCD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 231,
+   "name": "KIOXIA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 232,
+   "name": "QNT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 233,
+   "name": "NKE",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 234,
+   "name": "AAOI",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 235,
+   "name": "ASTS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 236,
+   "name": "VST",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 237,
+   "name": "MSTU",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 238,
+   "name": "SNPS",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 239,
+   "name": "ZEN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 240,
+   "name": "EURUSD",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 241,
+   "name": "BERA",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 242,
+   "name": "BSP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 243,
+   "name": "DRV",
+   "delisted": true,
+   "everLive": false
+  },
+  {
+   "index": 244,
+   "name": "CHIP",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 245,
+   "name": "ALGO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 246,
+   "name": "PREDICT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 247,
+   "name": "EWZ",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 248,
+   "name": "PEARL",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 249,
+   "name": "AMGN",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 250,
+   "name": "TTWO",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 251,
+   "name": "ANT",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 252,
+   "name": "USAR",
+   "delisted": false,
+   "everLive": true
+  },
+  {
+   "index": 253,
+   "name": "STRC",
+   "delisted": false,
+   "everLive": true
+  }
+ ],
+ "pending": [],
+ "sent": []
+}

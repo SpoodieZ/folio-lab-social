@@ -1,2 +1,3 @@
 {"at":"2026-11-27T05:31:32.113Z","line":"up","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0531-up","numbers":{"listed":5,"top":11.96},"warns":[]}
 {"at":"2026-11-27T05:33:03.603Z","line":"funding","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0532-funding","numbers":{"hi":123.0227244,"lo":-17.1785352,"listed":2},"warns":[]}
+{"at":"2026-11-27T05:37:53.663Z","line":"new","decision":"baseline","reason":"first run: 253 markets saved, nothing to announce"}
