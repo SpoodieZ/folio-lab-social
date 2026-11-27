@@ -7,3 +7,5 @@
 {"at":"2026-11-27T06:59:53.597Z","line":"funding","decision":"skip","reason":"nothing notable: highest positive APR 20.8%, lowest negative -27.8% (needs 100% either way)","numbers":{"hi":20.8221696,"lo":-27.8482152}}
 {"at":"2026-11-27T07:00:52.392Z","line":"down","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0700-down","numbers":{"listed":5,"top":-10.7},"warns":[]}
 {"at":"2026-11-27T08:04:21.727Z","line":"up","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0803-up","numbers":{"listed":5,"top":22.94},"warns":[]}
+{"at":"2026-11-27T08:05:31.945Z","line":"up","decision":"posted","reason":"post 2126225895908102547","numbers":{"listed":5,"top":22.48}}
+{"at":"2026-11-27T08:05:31.945Z","line":"up","decision":"no-reply","reason":"reply mode is none: add the link by hand if you want it"}
