@@ -56,6 +56,9 @@ Kèm theo: trang tải chậm thì chờ nút mở bảng giá thêm tối đa k
 4. **Bài đăng thật đầu tiên làm cùng nhau:** phần gọi X API chưa được thử với tài khoản thật. Đặt `SOCIAL_MODE` = `live` rồi chạy tay một tuyến (tick *force*), kiểm tra bài hiện ra đúng.
 5. Muốn tắt: đặt `SOCIAL_MODE` = `off` (hoặc xoá biến), hoặc thêm file `KILL`.
 
+## Kiểm tra khoá (không đăng bài)
+Tab Actions → `check-keys` → *Run workflow*. Chạy `check_keys.mjs`: một lần đọc `GET /2/users/me`, báo khoá thuộc tài khoản nào (mong đợi @Txfoliolab). Không đăng, không tải ảnh, không in khoá. X có thể tính một khoản phí đọc rất nhỏ. Đạt bước này **chưa** chứng minh đăng bài được (quyền ghi, credit cho bài đăng chỉ biết khi đăng thật).
+
 ## Reply dưới bài (`reply` trong `config.json`, mỗi tuyến một cài đặt)
 | Giá trị | Chuyện gì xảy ra | Giá thêm mỗi bài |
 |---|---|---|
@@ -68,7 +71,7 @@ Bộ kiểm tra từ chối mọi bài mà **chữ chính hoặc reply kiểu `p
 X tính tiền theo lần gọi: tạo bài **$0.015**, tạo bài **có link $0.20**, gắn alt text **$0.005**. Với `reply: none`, mỗi bài (có ảnh và alt text) tốn **$0.02**, 5 bài mỗi ngày khoảng **$3 mỗi tháng**; với `pointer` thì $0.035 mỗi bài, khoảng $5.25 mỗi tháng. Phí tải ảnh lên không thấy trong bảng giá (có thể $0): xem hóa đơn vài ngày đầu. Giới hạn của X: 100 bài mỗi 15 phút, không đáng lo.
 
 ## Đã thử và chưa thử
-- **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (38 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
+- **Đã thử thật** (chế độ `dry`, trên máy này): dựng được bài và ảnh của cả ba tuyến từ dữ liệu sống của TxFlow; công tắc `off`, cửa sổ giờ, file `KILL`, `live` thiếu khoá; chữ ký OAuth 1.0a khớp ví dụ trong tài liệu của X; `node test.mjs` (41 kiểm tra, gồm lịch 2 bài trong `config.json` và 16 kiểm tra cho tuyến 3: chạy cả luồng với X giả, giả lập lỗi từng bước). Tuyến 3 đã chạy `dry` với dữ liệu thật và Chrome thật trên máy này (27/11/2026).
 - **Đã thử trên máy GitHub** (27/11/2026, `dry`, chạy tay): cả bốn tuyến chạy xong; Chrome dựng được ảnh, TxFlow trả dữ liệu cho máy GitHub; tuyến 3 đã dựng thẻ (thử bằng cách giấu `STRC` khỏi mốc, sau đó đã xoá khỏi danh sách chờ).
 - **Chưa thử:** đăng thật lên X; lịch cron của GitHub tự chạy. Quy tắc của X về reply (chỉ trả lời người đã tương tác) có thể áp dụng cho reply vào bài của chính mình, chưa rõ.
 - **Chưa có:** tuyến 4, tuyến 5 (xem `tools/social/README.md`).

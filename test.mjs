@@ -6,6 +6,7 @@ import os from "node:os";
 import path from "node:path";
 import { runNewLine } from "./lib/line_new.mjs";
 import { buildFunding, buildMovers } from "./lib/lines.mjs";
+import { checkKeys } from "./check_keys.mjs";
 import { oauth1Header } from "./lib/x.mjs";
 import { decide, recordPost, plannedOffset } from "./lib/guard.mjs";
 import { lint, xLen } from "./lib/check.mjs";
@@ -118,6 +119,26 @@ await run1("funding: only negative funding builds; quiet or empty data is skippe
   assert.match(p.text, /Shorts pay: \$CYBER −217% APR/); assert.doesNotMatch(p.text, /Longs pay/);
   assert.match((await buildFunding(fakePage({ high: [f("AAA", 51.7)], low: [], n: 40 }), fcfg, when)).skip, /nothing notable/);
   await assert.rejects(buildFunding(fakePage({ high: [], low: [], n: 0 }), fcfg, when), /no funding data/);
+});
+
+// ---- the key check (a fake X answers)
+const KEYS = { X_API_KEY: "ck-AAAAAAAAAAAAAAAAAAAA", X_API_SECRET: "cs-BBBBBBBBBBBBBBBBBBBB", X_ACCESS_TOKEN: "12-CCCCCCCCCCCCCCCCCCCC", X_ACCESS_SECRET: "as-DDDDDDDDDDDDDDDDDDDD" };
+const ask = async (env, status, body, level) => { const lines = [], calls = []; const code = await checkKeys({ env, say: t => lines.push(t), fetcher: async (url, o) => { calls.push({ url, method: o.method || "GET", auth: o.headers.Authorization }); return { ok: status < 300, status, headers: { get: () => level || null }, text: async () => JSON.stringify(body) }; } }); return { code, text: lines.join("\n"), calls }; };
+await run1("key check: right account passes with one read and nothing else", async () => {
+  const r = await ask(KEYS, 200, { data: { username: "Txfoliolab" } }, "read-write");
+  assert.equal(r.code, 0); assert.match(r.text, /act for @Txfoliolab[\s\S]*read-write/); assert.equal(r.calls.length, 1); assert.equal(r.calls[0].method, "GET"); assert.equal(r.calls[0].url, "https://api.x.com/2/users/me"); assert.match(r.calls[0].auth, /^OAuth .*oauth_signature=/);
+});
+await run1("key check: another account, refused keys, no credits, missing or broken keys all fail", async () => {
+  assert.match((await ask(KEYS, 200, { data: { username: "someoneelse" } })).text, /expected @Txfoliolab/);
+  assert.equal((await ask(KEYS, 200, { data: { username: "someoneelse" } })).code, 1);
+  assert.match((await ask(KEYS, 401, { title: "Unauthorized" })).text, /401[\s\S]*key is wrong/);
+  assert.match((await ask(KEYS, 402, { title: "CreditsDepleted" })).text, /402[\s\S]*credits/);
+  const none = await ask({ ...KEYS, X_ACCESS_SECRET: "" }, 200, {}); assert.equal(none.code, 1); assert.equal(none.calls.length, 0); assert.match(none.text, /missing X_ACCESS_SECRET/);
+  const spaced = await ask({ ...KEYS, X_API_KEY: "ab cd" }, 200, {}); assert.equal(spaced.code, 1); assert.equal(spaced.calls.length, 0);
+});
+await run1("key check: a key echoed back by X never reaches the log", async () => {
+  const r = await ask(KEYS, 401, { detail: "bad token " + Object.values(KEYS).join(" ") });
+  for (const v of Object.values(KEYS)) assert.ok(!r.text.includes(v)); assert.match(r.text, /\[hidden\]/);
 });
 
 // ---- line 3 (NEW ON TXFLOW), the whole run offline
