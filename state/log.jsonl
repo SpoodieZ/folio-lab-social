@@ -3,3 +3,4 @@
 {"at":"2026-11-27T05:37:53.663Z","line":"new","decision":"baseline","reason":"first run: 253 markets saved, nothing to announce"}
 {"at":"2026-11-27T05:41:13.224Z","line":"down","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0540-down","numbers":{"listed":5,"top":-13.83},"warns":[]}
 {"at":"2026-11-27T05:43:14.085Z","line":"new","decision":"dry-run","reason":"new: built, nothing posted; see out/2026-11-27-0543-new-new","numbers":{"listed":["STRC"]},"warns":[]}
+{"at":"2026-11-27T06:59:18.423Z","line":"up","decision":"dry-run","reason":"built, nothing posted; see out/2026-11-27-0658-up","numbers":{"listed":5,"top":20.99},"warns":[]}
