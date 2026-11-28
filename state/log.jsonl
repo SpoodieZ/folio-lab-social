@@ -10,3 +10,4 @@
 {"at":"2026-11-27T08:05:31.945Z","line":"up","decision":"posted","reason":"post 2126225895908102547","numbers":{"listed":5,"top":22.48}}
 {"at":"2026-11-27T08:05:31.945Z","line":"up","decision":"no-reply","reason":"reply mode is none: add the link by hand if you want it"}
 {"at":"2026-11-28T00:02:05.403Z","line":"down","decision":"skip","reason":"outside the posting window (16:00 UTC plus 240 min)"}
+{"at":"2026-11-28T00:03:38.502Z","line":"funding","decision":"skip","reason":"outside the posting window (13:00 UTC plus 150 min)"}
